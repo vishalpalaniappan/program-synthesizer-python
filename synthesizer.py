@@ -36,7 +36,7 @@ class Synthesizer:
         importNode = ast.parse("from LoggingHelper import semanticLogger").body[0]
         self.tree.body.insert(0, importNode)
 
-        directory = os.path.dirname(self.packagePath)
+        directory = os.getcwd()
         with open(os.path.join(directory, "output", 'synthesized.py'), 'w') as f:
             f.write(ast.unparse(self.tree))
 
