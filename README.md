@@ -49,3 +49,11 @@ def b_behavior1(book):
     book["name"] = "Harry Potter"
     semanticLogger.logPostParticipant("book")
 ```
+
+Upcoming changes:
+- I need to add an export synth package to the engine that will create the required package
+- In the engine, I need to specify the relevant metadata for more primitives
+- I need to import the genreated package into this program and use it to synthesize the program
+- I need to add support for more primitive types in this program
+- Obviously this will actually be in the engine, I just wanted to use the python AST library because it is really convenient for now.
+- Eventually I will think about scaffolding to connect to reality etc. 
