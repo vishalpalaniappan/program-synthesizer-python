@@ -37,13 +37,12 @@ class Synthesizer:
         self.tree.body.insert(0, importNode)
 
         directory = os.path.dirname(self.packagePath)
-        with open(os.path.join(directory, 'synthesized.py'), 'w') as f:
+        with open(os.path.join(directory, "output", 'synthesized.py'), 'w') as f:
             f.write(ast.unparse(self.tree))
 
         return None
     
     def processBehavior(self, node):
-        print(f"Processing behavior: {node['behavior']}")
         body = []
 
         # Add log statements for pre participants
@@ -53,7 +52,6 @@ class Synthesizer:
 
         # Process transformation here
         for transformation in node['transformations']:
-            print(f"Transformation: {transformation}")
             if (transformation["type"] == "set"):
                 stmt = self.getSetStatement(transformation)
                 if stmt is not None:
@@ -61,7 +59,6 @@ class Synthesizer:
 
         # Add log statements for post participants
         for participant in node['post_participants']:
-            print(f"Participant: {participant}")
             logStmt = getPostParticipantLog(participant)
             body.append(logStmt)
 
