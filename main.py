@@ -1,7 +1,7 @@
 import sys
 import argparse
-from synthesizer import Synthesizer
-import synthesizer
+from src.synthesizer import Synthesizer
+import src.synthesizer as synthesizer
 
 def main(argv):
 

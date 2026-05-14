@@ -1,12 +1,12 @@
 import json
 import ast
 import os
-from helper import getPreParticipantLog
-from helper import getPostParticipantLog
-from helper import getFunctionDef
-from helper import getConstant
-from helper import getName
-from helper import getAssign
+from src.helper import getPreParticipantLog
+from src.helper import getPostParticipantLog
+from src.helper import getFunctionDef
+from src.helper import getConstant
+from src.helper import getName
+from src.helper import getAssign
 
 class Synthesizer:
     def __init__(self, packagePath):
