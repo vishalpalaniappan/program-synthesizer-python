@@ -1,11 +1,16 @@
 import json
 import ast
+import os
 from helper import getPreParticipantLog
 from helper import getPostParticipantLog
 from helper import getFunctionDef
+from helper import getConstant
+from helper import getName
+from helper import getAssign
 
 class Synthesizer:
     def __init__(self, packagePath):
+        self.packagePath = packagePath
         try:
             with open(packagePath, 'r') as f:
                 self.model = json.loads(f.read())
@@ -27,7 +32,14 @@ class Synthesizer:
             output = self.processBehavior(entry)
             self.tree.body.append(output)
             ast.fix_missing_locations(self.tree)
-            print(ast.unparse(self.tree))
+        
+        importNode = ast.parse("from LoggingHelper import semanticLogger").body[0]
+        self.tree.body.insert(0, importNode)
+
+        directory = os.path.dirname(self.packagePath)
+        with open(os.path.join(directory, 'synthesized.py'), 'w') as f:
+            f.write(ast.unparse(self.tree))
+
         return None
     
     def processBehavior(self, node):
@@ -36,9 +48,16 @@ class Synthesizer:
 
         # Add log statements for pre participants
         for participant in node['pre_participants']:
-            print(f"Participant: {participant}")
             logStmt = getPreParticipantLog(participant)
             body.append(logStmt)
+
+        # Process transformation here
+        for transformation in node['transformations']:
+            print(f"Transformation: {transformation}")
+            if (transformation["type"] == "set"):
+                stmt = self.getSetStatement(transformation)
+                if stmt is not None:
+                    body.append(stmt)
 
         # Add log statements for post participants
         for participant in node['post_participants']:
@@ -46,7 +65,21 @@ class Synthesizer:
             logStmt = getPostParticipantLog(participant)
             body.append(logStmt)
 
-        # Process transformation here
-
         # Create function
         return getFunctionDef(node['behavior'], [], body)
+    
+    def getSetStatement(self, transformation):
+        print(f"Processing set transformation: {transformation}")
+
+        # Not supporting keys currently
+        if (len(transformation["keys"])) > 0:
+            print ("Keys not currently supported")
+            return None
+
+        # Get name node and value or constant based on transformation
+        name = getName(transformation["targetParticipantName"], ast.Store())
+        if (transformation["valueType"]["type"] == "constant"):
+            value = getConstant(transformation["valueType"]["value"])
+        elif (transformation["valueType"]["type"] == "name"):
+            value = getName(transformation["valueType"]["value"], ast.Load())
+        return getAssign(name, value)

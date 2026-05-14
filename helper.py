@@ -32,7 +32,7 @@ def getPreParticipantLog(name):
                 ctx=ast.Load()
             ),
             args=[
-                ast.Name(id=name, ctx=ast.Load()),
+                ast.Constant(value=name),
             ],
             keywords=[]
         )
@@ -51,8 +51,34 @@ def getPostParticipantLog(name):
                 ctx=ast.Load()
             ),
             args=[
-                ast.Name(id=name, ctx=ast.Load()),
+                ast.Constant(value=name),
             ],
             keywords=[]
         )
+    )
+
+def getName(name, ctx):
+    '''
+        This function returns a name node.
+    '''
+    return ast.Name(
+        id=name,
+        ctx=ctx
+    )
+
+def getConstant(value):
+    '''
+        This function returns a constant node.
+    '''
+    return ast.Constant(
+        value=value
+    )
+
+def getAssign(target, value):
+    '''
+        This function returns an assignment statement.
+    '''
+    return ast.Assign(
+        targets=[target],
+        value=value
     )

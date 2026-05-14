@@ -6,15 +6,18 @@
         ],
         "transformations": [
             {
-                "targetParticipantName": "book",
-                "keys": [
-                    "name"
-                ],
-                "valueParticipantName": "Harry Potter"
+                "type": "set",
+                "targetParticipantName": "bookName",
+                "keys": [],
+                "valueType": {
+                    "type": "constant",
+                    "value": "Harry Potter"
+                }
             }
         ],
         "post_participants": [
             "book",
+            "bookName",
             "name4"
         ]
     }
