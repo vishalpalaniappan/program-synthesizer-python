@@ -37,3 +37,22 @@ def getPreParticipantLog(name):
             keywords=[]
         )
     )
+
+def getPostParticipantLog(name):
+    '''
+        This function returns a log statement for participant
+        after the behavior.
+    '''
+    return ast.Expr(
+        value=ast.Call(
+            func=ast.Attribute(
+                value=ast.Name(id='semanticLogger', ctx=ast.Load()),
+                attr='logPostParticipant',
+                ctx=ast.Load()
+            ),
+            args=[
+                ast.Name(id=name, ctx=ast.Load()),
+            ],
+            keywords=[]
+        )
+    )
