@@ -2,8 +2,7 @@
     {
         "behavior": "behavior1",
         "pre_participants": [
-            "name1",
-            "name2"
+            "book"
         ],
         "transformations": [
             {
@@ -15,7 +14,7 @@
             }
         ],
         "post_participants": [
-            "name3",
+            "book",
             "name4"
         ]
     }
