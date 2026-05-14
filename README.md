@@ -5,7 +5,7 @@ This tool synthesizes a python program that contains the implementation of behav
 
 Example:
 ```
-python3 main.py --package synthPackage.json 
+python3 main.py --package ./packages/synthPackage.json 
 ```
 
 # Overview
