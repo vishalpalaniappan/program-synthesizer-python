@@ -1,0 +1,22 @@
+[
+    {
+        "behavior": "behavior1",
+        "pre_participants": [
+            "name1",
+            "name2"
+        ],
+        "transformations": [
+            {
+                "targetParticipantName": "book",
+                "keys": [
+                    "name"
+                ],
+                "valueParticipantName": "Harry Potter"
+            }
+        ],
+        "post_participants": [
+            "name3",
+            "name4"
+        ]
+    }
+]
