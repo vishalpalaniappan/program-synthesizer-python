@@ -1,5 +1,7 @@
 import sys
 import argparse
+from synthesizer import Synthesizer
+import synthesizer
 
 def main(argv):
 
@@ -22,7 +24,8 @@ def main(argv):
         print(f"Invalid arguments: {str(e)}", file=sys.stderr)
         return -1
 
-    print(package)
+    synth = Synthesizer(package)
+    synth.run()
 
 
 if "__main__" == __name__:

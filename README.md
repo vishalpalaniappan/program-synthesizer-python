@@ -1,7 +1,14 @@
 # program-synthesizer-python
 This tool synthesizes a python program that contains the implementation of behaviors specified in the design abstraction language.
 
-Overview:
+# Usage
+
+Example:
+```
+python3 main.py --package synthPackage.json 
+```
+
+# Overview
 
 This tool will read each entry in the synth package and for each behavior it will:
 - Create a function with the name
