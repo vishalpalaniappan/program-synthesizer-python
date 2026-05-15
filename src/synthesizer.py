@@ -64,7 +64,7 @@ class Synthesizer:
             body.append(logStmt)
 
         # Create function
-        return getFunctionDef(node['behavior'], [], body)
+        return getFunctionDef(node['behavior'], node['pre_participants'], body)
     
     def getSetStatement(self, transformation):
         print(f"Processing set transformation: {transformation}")

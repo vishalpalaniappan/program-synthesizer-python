@@ -7,15 +7,6 @@
         "transformations": [
             {
                 "type": "set",
-                "targetParticipantName": "book",
-                "keys": [],
-                "valueType": {
-                    "type": "constant",
-                    "value": {}
-                }
-            },
-            {
-                "type": "set",
                 "targetParticipantName": "bookName",
                 "keys": [],
                 "valueType": {
@@ -36,6 +27,27 @@
         "post_participants": [
             "book",
             "bookName"
+        ]
+    },
+    {
+        "behavior": "behavior2",
+        "pre_participants": [
+            "book"
+        ],
+        "transformations": [
+            {
+                "type": "set",
+                "targetParticipantName": "sample",
+                "keys": [],
+                "valueType": {
+                    "type": "constant",
+                    "value": "SAMPLE_STRING"
+                }
+            }
+        ],
+        "post_participants": [
+            "book",
+            "sample"
         ]
     }
 ]
