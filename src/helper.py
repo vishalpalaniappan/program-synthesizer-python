@@ -94,3 +94,30 @@ def getVariableNameWithKeys(name, keys):
         )
 
     return current
+
+
+def getBinOp(target, left, operator, right):
+    '''
+        This function returns a binary operation node.
+    '''
+    # Get operator node based on transformation
+    if operator == "+":
+        op = ast.Add()
+    elif operator == "-":
+        op = ast.Sub()
+    elif operator == "*":
+        op = ast.Mult()
+    elif operator == "/":
+        op = ast.Div()
+    else:
+        print(f"Unsupported operator: {operator}")
+        return None
+    
+    return ast.Assign(
+        targets=[target],
+        value=ast.BinOp(
+            left=left,
+            op=op,
+            right=right
+        )
+    )
