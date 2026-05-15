@@ -1,0 +1,69 @@
+[
+    {
+        "behavior": "TestBehavior",
+        "pre_participants": [
+            "text",
+            "book"
+        ],
+        "post_participants": [
+            "book",
+            "book_name"
+        ],
+        "transformations": [
+            {
+                "type": "set",
+                "targetParticipantName": "book_name",
+                "keys": [],
+                "valueType": {
+                    "type": "constant",
+                    "value": ""
+                }
+            },
+            {
+                "type": "set",
+                "targetParticipantName": "text_length",
+                "keys": [],
+                "valueType": {
+                    "type": "constant",
+                    "value": 0
+                }
+            },
+            {
+                "type": "set",
+                "targetParticipantName": "is_length_correct",
+                "keys": [],
+                "valueType": {
+                    "type": "constant",
+                    "value": null
+                }
+            },
+            {
+                "type": "set",
+                "targetParticipantName": "expected_length",
+                "keys": [],
+                "valueType": {
+                    "type": "constant",
+                    "value": 5
+                }
+            },
+            {
+                "type": "set",
+                "targetParticipantName": "number1",
+                "keys": [],
+                "valueType": {
+                    "type": "constant",
+                    "value": 5
+                }
+            },
+            {
+                "type": "set",
+                "targetParticipantName": "is_length_correct",
+                "keys": [],
+                "valueType": {
+                    "type": "constant",
+                    "value": ""
+                }
+            }
+        ]
+    }
+]

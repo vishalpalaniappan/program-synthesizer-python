@@ -1,0 +1,123 @@
+import ast
+
+def getFunctionDef(name, args, body):
+    '''
+        This function returns a function definition statement.
+    '''
+    return ast.FunctionDef(
+        name=name,
+        args=ast.arguments(
+            posonlyargs=[],
+            args=[ast.arg(arg=arg, annotation=None) for arg in args],
+            vararg=None,
+            kwonlyargs=[],
+            kw_defaults=[],
+            kwarg=None,
+            defaults=[]
+        ),
+        body=body,
+        decorator_list=[]
+    )
+
+def getPreParticipantLog(name):
+    '''
+        This function returns a log statement for participant
+        before the behavior.
+    '''
+    return ast.Expr(
+        value=ast.Call(
+            func=ast.Attribute(
+                value=ast.Name(id='semanticLogger', ctx=ast.Load()),
+                attr='logPreParticipant',
+                ctx=ast.Load()
+            ),
+            args=[
+                ast.Name(id=name, ctx=ast.Load()),
+            ],
+            keywords=[]
+        )
+    )
+
+def getPostParticipantLog(name):
+    '''
+        This function returns a log statement for participant
+        after the behavior.
+    '''
+    return ast.Expr(
+        value=ast.Call(
+            func=ast.Attribute(
+                value=ast.Name(id='semanticLogger', ctx=ast.Load()),
+                attr='logPostParticipant',
+                ctx=ast.Load()
+            ),
+            args=[
+                ast.Name(id=name, ctx=ast.Load()),
+            ],
+            keywords=[]
+        )
+    )
+
+def getName(name, ctx):
+    '''
+        This function returns a name node.
+    '''
+    return ast.Name(
+        id=name,
+        ctx=ctx
+    )
+
+def getConstant(value):
+    '''
+        This function returns a constant node.
+    '''
+    return ast.Constant(
+        value=value
+    )
+
+def getAssign(target, value):
+    '''
+        This function returns an assignment statement.
+    '''
+    return ast.Assign(
+        targets=[target],
+        value=value
+    )
+
+def getVariableNameWithKeys(name, keys):
+    current = ast.Name(id=name, ctx=ast.Load())
+
+    for key in keys:
+        current = ast.Subscript(
+            value=current,
+            slice=ast.Constant(value=key),
+            ctx=ast.Load()
+        )
+
+    return current
+
+
+def getBinOp(target, left, operator, right):
+    '''
+        This function returns a binary operation node.
+    '''
+    # Get operator node based on transformation
+    if operator == "+":
+        op = ast.Add()
+    elif operator == "-":
+        op = ast.Sub()
+    elif operator == "*":
+        op = ast.Mult()
+    elif operator == "/":
+        op = ast.Div()
+    else:
+        print(f"Unsupported operator: {operator}")
+        return None
+    
+    return ast.Assign(
+        targets=[target],
+        value=ast.BinOp(
+            left=left,
+            op=op,
+            right=right
+        )
+    )
