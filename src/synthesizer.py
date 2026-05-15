@@ -7,6 +7,7 @@ from src.helper import getFunctionDef
 from src.helper import getConstant
 from src.helper import getName
 from src.helper import getAssign
+from src.helper import getVariableNameWithKeys
 
 class Synthesizer:
     def __init__(self, packagePath):
@@ -70,11 +71,11 @@ class Synthesizer:
 
         # Not supporting keys currently
         if (len(transformation["keys"])) > 0:
-            print ("Keys not currently supported")
-            return None
+            name = getVariableNameWithKeys(transformation["targetParticipantName"], transformation["keys"])
+        else:
+            name = getName(transformation["targetParticipantName"], ast.Store())
 
         # Get name node and value or constant based on transformation
-        name = getName(transformation["targetParticipantName"], ast.Store())
         if (transformation["valueType"]["type"] == "constant"):
             value = getConstant(transformation["valueType"]["value"])
         elif (transformation["valueType"]["type"] == "name"):

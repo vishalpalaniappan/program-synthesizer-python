@@ -32,7 +32,7 @@ def getPreParticipantLog(name):
                 ctx=ast.Load()
             ),
             args=[
-                ast.Constant(value=name),
+                ast.Name(id=name, ctx=ast.Load()),
             ],
             keywords=[]
         )
@@ -51,7 +51,7 @@ def getPostParticipantLog(name):
                 ctx=ast.Load()
             ),
             args=[
-                ast.Constant(value=name),
+                ast.Name(id=name, ctx=ast.Load()),
             ],
             keywords=[]
         )
@@ -82,3 +82,15 @@ def getAssign(target, value):
         targets=[target],
         value=value
     )
+
+def getVariableNameWithKeys(name, keys):
+    current = ast.Name(id=name, ctx=ast.Load())
+
+    for key in keys:
+        current = ast.Subscript(
+            value=current,
+            slice=ast.Constant(value=key),
+            ctx=ast.Load()
+        )
+
+    return current
