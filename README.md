@@ -3,9 +3,13 @@ This tool synthesizes a Python program that implements the behaviors specified i
 
 Each primitive defines an unambiguous computable transformation that is mapped onto an implementation structure. The semantic model establishes the authoritative meaning of those transformations, and it is those semantics that drive the entire realization process. The synthesis package provides the metadata required to realize the program from its semantic definition by constructing the implementation using Abstract Syntax Trees.
 
-The result is a program that is no longer the programmer’s best attempt to realize the meaning of the design; it is the meaning itself being realized through computation. 
+The result is a program that is no longer the programmer’s best attempt to realize the meaning of the design; it is meaning itself being realized through computation. 
 
-While it may be tempting to think of this as automated development, I do not think that description is correct. It is more accurate to describe it as program synthesis from meaning. Although the system automatically produces code, the responsibility of the developer has not disappeared; it has been shifted upward to the design itself, where the meaning of the system is established.
+While it may be tempting to think of this as automated development, I do not think that description is correct. It is more accurate to describe it as automated program synthesis from meaning. Although the system automatically produces code, the responsibility of the developer has not disappeared; it has been shifted upward to the design itself, where the meaning of the system is established. 
+
+In this process, the program is deterministically established when the computable semantic model is constructed through the mapping of semantic primitives onto implementation structures represented as Abstract Syntax Trees. This tool simply realizes that mapping and the process is actually very straightforward to implement.
+
+I emphasize the deterministic nature of this process because many of the other techniques being explored are probabilistic and generative. This approach is fundamentally different. The implementation is not inferred, predicted, or approximated; it is directly realized from the semantic meaning established in the model.
 
 # Usage
 
