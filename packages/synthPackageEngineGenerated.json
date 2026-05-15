@@ -1,6 +1,6 @@
 [
     {
-        "behavior": "Test Behavior",
+        "behavior": "TestBehavior",
         "pre_participants": [
             "text",
             "book"
