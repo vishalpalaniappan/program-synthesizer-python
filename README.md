@@ -1,5 +1,11 @@
 # program-synthesizer-python
-This tool synthesizes a python program that contains the implementation of behaviors specified in the design abstraction language.
+This tool synthesizes a Python program that implements the behaviors specified in the Design Abstraction Language.
+
+Each primitive defines an unambiguous computable transformation that is mapped onto an implementation structure. The semantic model establishes the authoritative meaning of those transformations, and it is those semantics that drive the entire realization process. The synthesis package provides the metadata required to realize the program from its semantic definition by constructing the implementation using Abstract Syntax Trees.
+
+The result is a program that is no longer the programmer’s best attempt to realize the meaning of the design; it is the meaning itself being realized through computation. 
+
+While it may be tempting to think of this as automated development, I do not think that description is correct. It is more accurate to describe it as program synthesis from meaning. Although the system automatically produces code, the responsibility of the developer has not disappeared; it has been shifted upward to the design itself, where the meaning of the system is established.
 
 # Usage
 
