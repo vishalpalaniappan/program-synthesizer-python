@@ -57,6 +57,10 @@ class Synthesizer:
                 stmt = self.getSetStatement(transformation)
                 if stmt is not None:
                     body.append(stmt)
+            elif (transformation["type"] == "binop"):
+                stmt = self.getBinOpStatement(transformation)
+                if stmt is not None:
+                    body.append(stmt)
 
         # Add log statements for post participants
         for participant in node['post_participants']:
@@ -66,18 +70,68 @@ class Synthesizer:
         # Create function
         return getFunctionDef(node['behavior'], node['pre_participants'], body)
     
+    def getNodeByType(self, meta):
+        '''
+            Returns the node by type:
+            "constant": returns a constant node with the value
+            "name": returns a name node with the value
+        '''
+        if meta["type"] == "constant":
+            return getConstant(meta["value"])
+        elif meta["type"] == "name":
+            return getName(meta["value"], ast.Load())
+        else:
+            print(f"Unsupported type: {meta['type']}")
+            return None
+    
     def getSetStatement(self, transformation):
+        '''
+            This function processes a set transformation and returns the corresponding AST node.
+        '''
         print(f"Processing set transformation: {transformation}")
 
-        # Not supporting keys currently
         if (len(transformation["keys"])) > 0:
             name = getVariableNameWithKeys(transformation["targetParticipantName"], transformation["keys"])
         else:
             name = getName(transformation["targetParticipantName"], ast.Store())
 
         # Get name node and value or constant based on transformation
-        if (transformation["valueType"]["type"] == "constant"):
-            value = getConstant(transformation["valueType"]["value"])
-        elif (transformation["valueType"]["type"] == "name"):
-            value = getName(transformation["valueType"]["value"], ast.Load())
+        value = self.getNodeByType(transformation["valueType"])
         return getAssign(name, value)
+    
+    def getBinOpStatement(self, transformation):
+        '''
+            This function processes a binop transformation and returns the corresponding AST node.
+        '''
+        print(f"Processing binop transformation: {transformation}")
+
+        if (len(transformation["targetKeys"])) > 0:
+            target = getVariableNameWithKeys(transformation["targetParticipantName"], transformation["targetKeys"])
+        else:
+            target = getName(transformation["targetParticipantName"], ast.Store())
+
+        # Get left and right nodes based on transformation
+        left = self.getNodeByType(transformation["leftType"])
+        right = self.getNodeByType(transformation["rightType"])
+
+        # Get operator node based on transformation
+        if transformation["operator"] == "+":
+            op = ast.Add()
+        elif transformation["operator"] == "-":
+            op = ast.Sub()
+        elif transformation["operator"] == "*":
+            op = ast.Mult()
+        elif transformation["operator"] == "/":
+            op = ast.Div()
+        else:
+            print(f"Unsupported operator: {transformation['operator']}")
+            return None
+        
+        return ast.Assign(
+            targets=[target],
+            value=ast.BinOp(
+                left=left,
+                op=op,
+                right=right
+            )
+        )

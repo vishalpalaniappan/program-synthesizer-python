@@ -22,6 +22,15 @@
                     "type": "constant",
                     "value": "Harry Potter"
                 }
+            },
+            {
+                "type": "set",
+                "targetParticipantName": "book",
+                "keys": ["name"],
+                "valueType": {
+                    "type": "constant",
+                    "value": "Harry Potter"
+                }
             }
         ],
         "post_participants": [
@@ -41,8 +50,22 @@
                 "keys": [],
                 "valueType": {
                     "type": "constant",
-                    "value": "SAMPLE_STRING"
+                    "value": 1
                 }
+            },
+            {
+                "type": "binop",
+                "targetParticipantName": "sample",
+                "targetKeys": [],
+                "leftType": {
+                    "type": "constant",
+                    "value": 2
+                },
+                "rightType": {
+                    "type": "constant",
+                    "value": 3
+                },
+                "operator": "+"
             }
         ],
         "post_participants": [
